@@ -38,7 +38,7 @@
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">Projek</p>
         <h2 class="mt-3 text-3xl font-bold tracking-tight">Projek &amp; produk</h2>
         <p class="mt-3 text-sm leading-relaxed text-slate-400">
-            Benda lain yang aku bina dan uruskan, bukan tools kat atas.
+            Benda lain yang aku bina.
         </p>
 
         <ul class="mt-8 space-y-3">
