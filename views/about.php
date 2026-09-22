@@ -106,7 +106,7 @@
 
         <blockquote class="mt-4 rounded-r-xl border-l-2 border-emerald-500 bg-slate-950 py-3 pl-5 text-base italic leading-relaxed text-slate-200">
             &ldquo;Kalau benda ni wujud, adakah hidup atau kerja seseorang boleh jadi
-            sedikit lebih senang?&rdquo;
+            lebih senang?&rdquo;
         </blockquote>
 
         <p class="mt-5 text-base leading-relaxed text-slate-400">
