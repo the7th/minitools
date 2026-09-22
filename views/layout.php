@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= e($title ?? 'Compress PDF') ?></title>
+    <title><?= e($title ?? 'Minitools') ?></title>
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="/build/app.css?v=<?= e((string) @filemtime(__DIR__ . '/../public/build/app.css')) ?>">
 </head>

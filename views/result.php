@@ -33,7 +33,7 @@ $saved = $improved ? (1 - $compressedSize / max($originalSize, 1)) * 100 : 0;
             Download sekarang
         </a>
         <a
-            href="/"
+            href="/tools/compress-pdf"
             class="flex-1 rounded-xl border border-slate-700 px-6 py-3.5 text-center text-sm font-semibold text-slate-300 transition hover:bg-slate-800"
         >
             Compress PDF lain

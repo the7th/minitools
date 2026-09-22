@@ -13,24 +13,36 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 
 if ($method === 'GET' && $path === '/') {
-    echo view('home');
+    echo view('home', ['title' => 'Home']);
 
     exit;
 }
 
-if ($method === 'POST' && $path === '/compress') {
+if ($method === 'GET' && $path === '/tools') {
+    echo view('tools', ['title' => 'Tools']);
+
+    exit;
+}
+
+if ($method === 'GET' && $path === '/tools/compress-pdf') {
+    echo view('tools/compress-pdf', ['title' => 'Compress PDF']);
+
+    exit;
+}
+
+if ($method === 'POST' && $path === '/tools/compress-pdf') {
     try {
         echo handle_compress();
     } catch (Throwable $e) {
         http_response_code(422);
-        echo view('home', ['error' => $e->getMessage()]);
+        echo view('tools/compress-pdf', ['title' => 'Compress PDF', 'error' => $e->getMessage()]);
     }
 
     exit;
 }
 
 http_response_code(404);
-echo view('home', ['error' => 'Halaman tak dijumpai.']);
+echo view('error', ['title' => 'Tak dijumpai', 'error' => 'Halaman tak dijumpai.']);
 exit;
 
 function handle_compress(): string
@@ -79,6 +91,7 @@ function handle_compress(): string
     $name = trim((string) preg_replace('/[^A-Za-z0-9 _.-]+/', '', $name)) ?: 'dokumen';
 
     return view('result', [
+        'title' => 'Compress PDF',
         'base64' => base64_encode($compressed),
         'downloadName' => $name . '-compressed.pdf',
         'originalSize' => strlen($original),

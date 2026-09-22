@@ -43,18 +43,19 @@ For development, `npm run dev` rebuilds the CSS on change.
 
 ## How it works
 
-`public/index.php` handles two routes: `GET /` renders the upload form and
-`POST /compress` runs the job. The uploaded PDF is read from PHP's temp file,
-deleted immediately, then piped through `gs` via `symfony/process`
-(stdin → stdout). The result is base64-encoded into the page, turned into a
-`Blob` URL in the browser, and shown in an embedded preview.
+`public/index.php` is the front controller: `GET /` renders the homepage,
+`GET /tools` lists the tools, and `GET`/`POST /tools/compress-pdf` render and
+run the compressor. The uploaded PDF is read from PHP's temp file, deleted
+immediately, then piped through `gs` via `symfony/process` (stdin → stdout).
+The result is base64-encoded into the page, turned into a `Blob` URL in the
+browser, and shown in an embedded preview.
 
 ## Project structure
 
 ```
 public/         web root (index.php front controller, router for php -S)
 src/            Compressor (Ghostscript wrapper), View, helpers
-views/          layout, home, result
+views/          layout, home, tools, tools/compress-pdf, result, error
 resources/      Tailwind entrypoint
 ```
 
