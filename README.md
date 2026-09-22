@@ -1,6 +1,6 @@
 # minitools
 
-A collection of small self-hosted web tools. Ships with one tool so far:
+A collection of small self-hosted web tools. Ships with two tools so far:
 
 ## Compress PDF
 
@@ -13,11 +13,26 @@ back to the browser as a blob, so no copy ever touches the server's disk.
 - Preview of the compressed PDF before download
 - If compression makes the file bigger, the original is returned
 
+## Compress PNG
+
+Upload a PNG, compress it, download the result. Processing happens in memory via
+the [Imagick](https://www.php.net/manual/en/book.imagick.php) extension and the
+result is shown as a preview before download.
+
+- Max upload: 25 MB (`PngCompressor::MAX_BYTES`)
+- Lossless pass first: strips metadata and re-encodes at max zlib compression
+- Lossy pass: quantizes to 256 colours with dithering, but only when the result
+  is at least 10% smaller than the lossless one and stays close to the original
+  (RMSE <= 0.05, configurable in `src/PngCompressor.php`)
+- Animated PNGs (APNG) are returned untouched
+- If compression makes the file bigger, the original is returned
+
 ## Requirements
 
 - PHP >= 8.2
 - [Composer](https://getcomposer.org/)
 - [Ghostscript](https://www.ghostscript.com/) (`gs` on `PATH`)
+- PHP `imagick` extension (for Compress PNG)
 - Node.js (only to build the Tailwind CSS)
 
 ## Setup
@@ -39,30 +54,34 @@ For development, `npm run dev` rebuilds the CSS on change.
 | --- | --- |
 | Upload / memory limits | `.user.ini` (php-fpm) and the flags in the `start` script |
 | Ghostscript binary | `GS_BINARY` env var, falls back to `gs` |
-| Max file size, preset, timeout | Constants in `src/Compressor.php` |
+| PDF size, preset, timeout | Constants in `src/Compressor.php` |
+| PNG size, colours, quality gate | Constants in `src/PngCompressor.php` |
 
 ## How it works
 
 `public/index.php` is the front controller: `GET /` renders the homepage,
-`GET /tools` lists the tools, and `GET`/`POST /tools/compress-pdf` render and
-run the compressor. The uploaded PDF is read from PHP's temp file, deleted
-immediately, then piped through `gs` via `symfony/process` (stdin → stdout).
-The result is base64-encoded into the page, turned into a `Blob` URL in the
-browser, and shown in an embedded preview.
+`GET /tools` lists the tools, and `GET`/`POST /tools/compress-pdf` and
+`GET`/`POST /tools/compress-png` render and run the compressors. The uploaded
+file is read from PHP's temp file and deleted immediately. PDFs are piped
+through `gs` via `symfony/process` (stdin → stdout); PNGs are processed in
+memory with Imagick. The result is base64-encoded into the page, turned into a
+`Blob` URL in the browser, and shown in a preview (iframe for PDF, `<img>` for
+PNG).
 
 ## Project structure
 
 ```
 public/         web root (index.php front controller, router for php -S)
-src/            Compressor (Ghostscript wrapper), View, helpers
-views/          layout, home, tools, tools/compress-pdf, result, error
+src/            Compressor (Ghostscript wrapper), PngCompressor (Imagick), View, helpers
+views/          layout, home, tools, tools/compress-pdf, tools/compress-png, result, error
 resources/      Tailwind entrypoint
 ```
 
 ## Deployment
 
-Needs a host with PHP-FPM and Ghostscript installed (e.g. a DigitalOcean
-Droplet with nginx + `php8.2-fpm` + `ghostscript`). Point the document root at
+Needs a host with PHP-FPM, Ghostscript and Imagick installed (e.g. a
+DigitalOcean Droplet with nginx + `php8.2-fpm` + `ghostscript` +
+`php8.2-imagick`). Point the document root at
 `public/`, run `composer install --no-dev`, `npm ci && npm run build`, and make
 sure `.user.ini` limits match the server config.
 

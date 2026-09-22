@@ -5,6 +5,7 @@
     "license": "MIT",
     "require": {
         "php": ">=8.2",
+        "ext-imagick": "*",
         "symfony/process": "^7.2"
     },
     "autoload": {

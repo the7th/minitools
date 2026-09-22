@@ -1,11 +1,12 @@
 <?php
 
 $saved = $improved ? (1 - $compressedSize / max($originalSize, 1)) * 100 : 0;
+$tool = $tool ?? 'Fail';
 
 ?>
 <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl shadow-black/40">
     <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">Siap</p>
-    <h1 class="mt-3 text-3xl font-bold tracking-tight">PDF dah compress</h1>
+    <h1 class="mt-3 text-3xl font-bold tracking-tight"><?= e($tool) ?> dah compress</h1>
 
     <p class="mt-3 text-sm text-slate-400">
         <?= e(human_size($originalSize)) ?> &rarr;
@@ -17,11 +18,19 @@ $saved = $improved ? (1 - $compressedSize / max($originalSize, 1)) * 100 : 0;
         <?php endif; ?>
     </p>
 
-    <iframe
-        id="pdf-preview"
-        title="Preview PDF"
-        class="mt-6 h-[60vh] w-full rounded-xl border border-slate-800 bg-slate-950"
-    ></iframe>
+    <?php if (($preview ?? 'pdf') === 'pdf'): ?>
+        <iframe
+            id="preview"
+            title="Preview PDF"
+            class="mt-6 h-[60vh] w-full rounded-xl border border-slate-800 bg-slate-950"
+        ></iframe>
+    <?php else: ?>
+        <img
+            id="preview"
+            alt="Preview PNG"
+            class="mt-6 max-h-[60vh] w-full rounded-xl border border-slate-800 bg-slate-950 object-contain"
+        >
+    <?php endif; ?>
 
     <div class="mt-6 flex flex-col gap-3 sm:flex-row">
         <a
@@ -33,10 +42,10 @@ $saved = $improved ? (1 - $compressedSize / max($originalSize, 1)) * 100 : 0;
             Download sekarang
         </a>
         <a
-            href="/tools/compress-pdf"
+            href="<?= e($toolPath ?? '/tools') ?>"
             class="flex-1 rounded-xl border border-slate-700 px-6 py-3.5 text-center text-sm font-semibold text-slate-300 transition hover:bg-slate-800"
         >
-            Compress PDF lain
+            Compress <?= e($tool) ?> lain
         </a>
     </div>
 
@@ -45,10 +54,10 @@ $saved = $improved ? (1 - $compressedSize / max($originalSize, 1)) * 100 : 0;
     </p>
 </section>
 
-<script type="text/plain" id="pdf-data"><?= $base64 ?></script>
+<script type="text/plain" id="file-data"><?= $base64 ?></script>
 <script>
     (() => {
-        const base64 = document.getElementById("pdf-data").textContent.trim();
+        const base64 = document.getElementById("file-data").textContent.trim();
         const binary = atob(base64);
         const bytes = new Uint8Array(binary.length);
 
@@ -56,9 +65,9 @@ $saved = $improved ? (1 - $compressedSize / max($originalSize, 1)) * 100 : 0;
             bytes[i] = binary.charCodeAt(i);
         }
 
-        const url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
+        const url = URL.createObjectURL(new Blob([bytes], { type: <?= json_encode($mime ?? 'application/octet-stream') ?> }));
 
-        document.getElementById("pdf-preview").src = url;
+        document.getElementById("preview").src = url;
         document.getElementById("download-link").href = url;
     })();
 </script>

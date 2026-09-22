@@ -18,6 +18,18 @@
                 <span aria-hidden="true" class="text-slate-500">&rarr;</span>
             </a>
         </li>
+        <li>
+            <a
+                href="/tools/compress-png"
+                class="flex items-center justify-between rounded-xl border border-slate-700 bg-slate-950 px-5 py-4 transition hover:border-emerald-500/60 hover:bg-slate-900"
+            >
+                <span>
+                    <span class="block text-sm font-semibold text-slate-100">Compress PNG</span>
+                    <span class="mt-1 block text-xs text-slate-500">Kecilkan saiz fail PNG tanpa rosakkan kualiti.</span>
+                </span>
+                <span aria-hidden="true" class="text-slate-500">&rarr;</span>
+            </a>
+        </li>
     </ul>
 
     <a href="/" class="mt-6 inline-block text-xs text-slate-500 transition hover:text-slate-300">&larr; Balik ke home</a>

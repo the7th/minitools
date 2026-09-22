@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e78983677114e9949e98bdd2b7b19dc",
+    "content-hash": "52c53b24cda8d5ac520a03ecd5af31db",
     "packages": [
         {
             "name": "symfony/process",
@@ -79,7 +79,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.2"
+        "php": ">=8.2",
+        "ext-imagick": "*"
     },
     "platform-dev": {},
     "plugin-api-version": "2.9.0"
