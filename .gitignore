@@ -1,0 +1,14 @@
+/vendor/
+/node_modules/
+/public/build/
+
+.env
+.env.*
+
+.DS_Store
+Thumbs.db
+
+.idea/
+.vscode/
+
+*.log
