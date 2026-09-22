@@ -12,11 +12,20 @@
         benda yang sedang aku usahakan, dan tools yang boleh terus digunakan.
     </p>
 
-    <a
-        href="/tools"
-        class="mt-8 inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-400"
-    >
-        Terokai projek &amp; tools
-        <span aria-hidden="true">&rarr;</span>
-    </a>
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a
+            href="/tools"
+            class="inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-400"
+        >
+            Terokai projek &amp; tools
+            <span aria-hidden="true">&rarr;</span>
+        </a>
+
+        <a
+            href="/tentang-aku"
+            class="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-6 py-3.5 text-sm font-semibold text-slate-300 transition hover:bg-slate-800"
+        >
+            Tentang aku
+        </a>
+    </div>
 </section>

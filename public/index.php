@@ -19,6 +19,12 @@ if ($method === 'GET' && $path === '/') {
     exit;
 }
 
+if ($method === 'GET' && $path === '/tentang-aku') {
+    echo view('about', ['title' => 'Tentang Aku']);
+
+    exit;
+}
+
 if ($method === 'GET' && $path === '/tools') {
     echo view('tools', ['title' => 'Tools']);
 
