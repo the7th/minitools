@@ -1,6 +1,9 @@
 # minitools
 
-A collection of small self-hosted web tools. Ships with two tools so far:
+Personal site plus a collection of small self-hosted web tools, all in Bahasa
+Melayu. It has three pages: a homepage, an about page ("Tentang Aku") with a
+prefilled WhatsApp CTA, and a tools page that lists the compressors and other
+projects. Two tools ship today:
 
 ## Compress PDF
 
@@ -26,6 +29,18 @@ result is shown as a preview before download.
   (RMSE <= 0.05, configurable in `src/PngCompressor.php`)
 - Animated PNGs (APNG) are returned untouched
 - If compression makes the file bigger, the original is returned
+
+## Pages & content
+
+| Page | Route | View |
+| --- | --- | --- |
+| Home | `/` | `views/home.php` |
+| Tentang Aku | `/tentang-aku` | `views/about.php` |
+| Tools & projects | `/tools` | `views/tools.php` |
+
+Copy is hard-coded in the views. The WhatsApp CTA on the about page points to
+`https://wa.me/<number>?text=<prefilled message>` — edit the number or message
+in `views/about.php`. External projects are linked from `views/tools.php`.
 
 ## Requirements
 
@@ -60,20 +75,20 @@ For development, `npm run dev` rebuilds the CSS on change.
 ## How it works
 
 `public/index.php` is the front controller: `GET /` renders the homepage,
-`GET /tools` lists the tools, and `GET`/`POST /tools/compress-pdf` and
-`GET`/`POST /tools/compress-png` render and run the compressors. The uploaded
-file is read from PHP's temp file and deleted immediately. PDFs are piped
-through `gs` via `symfony/process` (stdin → stdout); PNGs are processed in
-memory with Imagick. The result is base64-encoded into the page, turned into a
-`Blob` URL in the browser, and shown in a preview (iframe for PDF, `<img>` for
-PNG).
+`GET /tentang-aku` renders the about page, `GET /tools` lists the tools, and
+`GET`/`POST /tools/compress-pdf` and `GET`/`POST /tools/compress-png` render and
+run the compressors. The uploaded file is read from PHP's temp file and deleted
+immediately. PDFs are piped through `gs` via `symfony/process` (stdin → stdout);
+PNGs are processed in memory with Imagick. The result is base64-encoded into the
+page, turned into a `Blob` URL in the browser, and shown in a preview (iframe
+for PDF, `<img>` for PNG).
 
 ## Project structure
 
 ```
 public/         web root (index.php front controller, router for php -S)
 src/            Compressor (Ghostscript wrapper), PngCompressor (Imagick), View, helpers
-views/          layout, home, tools, tools/compress-pdf, tools/compress-png, result, error
+views/          layout, home, about, tools, tools/compress-pdf, tools/compress-png, result, error
 resources/      Tailwind entrypoint
 ```
 
