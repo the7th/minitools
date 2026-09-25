@@ -44,6 +44,30 @@
         <ul class="mt-8 space-y-3">
             <li>
                 <a
+                    href="/projek/sistem-kurier"
+                    class="flex items-center justify-between rounded-xl border border-slate-700 bg-slate-950 px-5 py-4 transition hover:border-emerald-500/60 hover:bg-slate-900"
+                >
+                    <span>
+                        <span class="block text-sm font-semibold text-slate-100"><?= t('courier.title') ?></span>
+                        <span class="mt-1 block text-xs text-slate-500"><?= t('tools.kurier_desc') ?></span>
+                    </span>
+                    <span aria-hidden="true" class="text-slate-500">&rarr;</span>
+                </a>
+            </li>
+            <li>
+                <a
+                    href="/projek/sdms"
+                    class="flex items-center justify-between rounded-xl border border-slate-700 bg-slate-950 px-5 py-4 transition hover:border-emerald-500/60 hover:bg-slate-900"
+                >
+                    <span>
+                        <span class="block text-sm font-semibold text-slate-100"><?= t('sdms.title') ?></span>
+                        <span class="mt-1 block text-xs text-slate-500"><?= t('tools.sdms_desc') ?></span>
+                    </span>
+                    <span aria-hidden="true" class="text-slate-500">&rarr;</span>
+                </a>
+            </li>
+            <li>
+                <a
                     href="https://latihan.my"
                     target="_blank"
                     rel="noopener noreferrer"

@@ -1,9 +1,9 @@
 # minitools
 
 Personal site plus a collection of small self-hosted web tools, in Malay and
-English. It has three pages: a homepage, an about page ("Tentang Aku") with a
-prefilled WhatsApp CTA, and a tools page that lists the compressors and other
-projects. Two tools ship today:
+English. It has a homepage, an about page ("Tentang Aku") with a prefilled
+WhatsApp CTA, a tools page that lists the compressors and other projects, and
+two project case studies (courier system, SDMS). Two tools ship today:
 
 ## Compress PDF
 
@@ -37,6 +37,8 @@ result is shown as a preview before download.
 | Home | `/` | `views/home.php` |
 | Tentang Aku | `/tentang-aku` | `views/about.php` |
 | Tools & projects | `/tools` | `views/tools.php` |
+| Case study: courier system | `/projek/sistem-kurier` | `views/project.php` |
+| Case study: SDMS | `/projek/sdms` | `views/project.php` |
 
 Copy lives in `lang/ms.php` and `lang/en.php` and is rendered through the `t()`
 helper. The WhatsApp CTA on the about page points to
@@ -76,7 +78,8 @@ For development, `npm run dev` rebuilds the CSS on change.
 ## How it works
 
 `public/index.php` is the front controller: `GET /` renders the homepage,
-`GET /tentang-aku` renders the about page, `GET /tools` lists the tools, and
+`GET /tentang-aku` renders the about page, `GET /tools` lists the tools,
+`GET /projek/sistem-kurier` and `GET /projek/sdms` render the case studies, and
 `GET`/`POST /tools/compress-pdf` and `GET`/`POST /tools/compress-png` render and
 run the compressors. The uploaded file is read from PHP's temp file and deleted
 immediately. PDFs are piped through `gs` via `symfony/process` (stdin → stdout);
@@ -94,7 +97,7 @@ rendered through the `t()` helper.
 ```
 public/         web root (index.php front controller, router for php -S)
 src/            Compressor (Ghostscript wrapper), PngCompressor (Imagick), View, Lang, helpers
-views/          layout, home, about, tools, tools/compress-pdf, tools/compress-png, result, error
+views/          layout, home, about, tools, project, tools/compress-pdf, tools/compress-png, result, error
 lang/           ms.php, en.php translation strings
 resources/      Tailwind entrypoint
 ```

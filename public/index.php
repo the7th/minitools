@@ -47,6 +47,18 @@ if ($method === 'GET' && $path === '/tools') {
     exit;
 }
 
+if ($method === 'GET' && $path === '/projek/sistem-kurier') {
+    echo view('project', ['title' => t('meta.kurier'), 'project' => 'sistem-kurier']);
+
+    exit;
+}
+
+if ($method === 'GET' && $path === '/projek/sdms') {
+    echo view('project', ['title' => t('meta.sdms'), 'project' => 'sdms']);
+
+    exit;
+}
+
 if ($method === 'GET' && $path === '/tools/compress-pdf') {
     echo view('tools/compress-pdf', ['title' => t('meta.compress_pdf')]);
 
