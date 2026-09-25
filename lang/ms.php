@@ -122,7 +122,7 @@ return [
 
     'tools.eyebrow' => 'Tools',
     'tools.heading' => 'Koleksi tools',
-    'tools.intro' => 'Semua tools kat sini jalan di server sendiri dan tak simpan fail kau.',
+    'tools.intro' => 'Semua tools di sini tak simpan file dekat server.',
     'tools.pdf_desc' => 'Kecilkan saiz fail PDF, terus download.',
     'tools.png_desc' => 'Kecilkan saiz fail PNG tanpa rosakkan kualiti.',
     'tools.ats_desc' => 'Semak sama ada resume kau boleh dibaca oleh sistem ATS.',

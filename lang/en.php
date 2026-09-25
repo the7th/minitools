@@ -122,7 +122,7 @@ return [
 
     'tools.eyebrow' => 'Tools',
     'tools.heading' => 'Tool collection',
-    'tools.intro' => 'Every tool here runs on my own server and does not store your files.',
+    'tools.intro' => 'None of the tools here store your files on the server.',
     'tools.pdf_desc' => 'Shrink PDF files, download right away.',
     'tools.png_desc' => 'Shrink PNG files without ruining quality.',
     'tools.ats_desc' => 'Check whether your resume can be read by ATS systems.',
