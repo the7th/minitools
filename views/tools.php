@@ -1,9 +1,9 @@
 <div class="space-y-6">
     <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl shadow-black/40">
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">Tools</p>
-        <h1 class="mt-3 text-3xl font-bold tracking-tight">Koleksi tools</h1>
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400"><?= t('tools.eyebrow') ?></p>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight"><?= t('tools.heading') ?></h1>
         <p class="mt-3 text-sm leading-relaxed text-slate-400">
-            Semua tools kat sini jalan di server sendiri dan tak simpan fail kau.
+            <?= t('tools.intro') ?>
         </p>
 
         <ul class="mt-8 space-y-3">
@@ -14,7 +14,7 @@
                 >
                     <span>
                         <span class="block text-sm font-semibold text-slate-100">Compress PDF</span>
-                        <span class="mt-1 block text-xs text-slate-500">Kecilkan saiz fail PDF, terus download.</span>
+                        <span class="mt-1 block text-xs text-slate-500"><?= t('tools.pdf_desc') ?></span>
                     </span>
                     <span aria-hidden="true" class="text-slate-500">&rarr;</span>
                 </a>
@@ -26,7 +26,7 @@
                 >
                     <span>
                         <span class="block text-sm font-semibold text-slate-100">Compress PNG</span>
-                        <span class="mt-1 block text-xs text-slate-500">Kecilkan saiz fail PNG tanpa rosakkan kualiti.</span>
+                        <span class="mt-1 block text-xs text-slate-500"><?= t('tools.png_desc') ?></span>
                     </span>
                     <span aria-hidden="true" class="text-slate-500">&rarr;</span>
                 </a>
@@ -35,10 +35,10 @@
     </section>
 
     <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl shadow-black/40">
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">Projek</p>
-        <h2 class="mt-3 text-3xl font-bold tracking-tight">Projek &amp; produk</h2>
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400"><?= t('tools.projects_eyebrow') ?></p>
+        <h2 class="mt-3 text-3xl font-bold tracking-tight"><?= t('tools.projects_heading') ?></h2>
         <p class="mt-3 text-sm leading-relaxed text-slate-400">
-            Benda lain yang aku bina.
+            <?= t('tools.projects_intro') ?>
         </p>
 
         <ul class="mt-8 space-y-3">
@@ -51,7 +51,7 @@
                 >
                     <span>
                         <span class="block text-sm font-semibold text-slate-100">Latihan.my</span>
-                        <span class="mt-1 block text-xs text-slate-500">Latih tubi online.</span>
+                        <span class="mt-1 block text-xs text-slate-500"><?= t('tools.latihan_desc') ?></span>
                     </span>
                     <span aria-hidden="true" class="text-slate-500">&nearr;</span>
                 </a>
@@ -65,7 +65,7 @@
                 >
                     <span>
                         <span class="block text-sm font-semibold text-slate-100">Tulis Ads</span>
-                        <span class="mt-1 block text-xs text-slate-500">SaaS copywriting, sejak 2020 lagi.</span>
+                        <span class="mt-1 block text-xs text-slate-500"><?= t('tools.tulis_desc') ?></span>
                     </span>
                     <span aria-hidden="true" class="text-slate-500">&nearr;</span>
                 </a>
@@ -74,4 +74,4 @@
     </section>
 </div>
 
-<a href="/" class="mt-6 inline-block text-xs text-slate-500 transition hover:text-slate-300">&larr; Balik ke home</a>
+<a href="/" class="mt-6 inline-block text-xs text-slate-500 transition hover:text-slate-300">&larr; <?= t('back_home') ?></a>

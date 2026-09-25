@@ -1,7 +1,7 @@
 # minitools
 
-Personal site plus a collection of small self-hosted web tools, all in Bahasa
-Melayu. It has three pages: a homepage, an about page ("Tentang Aku") with a
+Personal site plus a collection of small self-hosted web tools, in Malay and
+English. It has three pages: a homepage, an about page ("Tentang Aku") with a
 prefilled WhatsApp CTA, and a tools page that lists the compressors and other
 projects. Two tools ship today:
 
@@ -38,7 +38,8 @@ result is shown as a preview before download.
 | Tentang Aku | `/tentang-aku` | `views/about.php` |
 | Tools & projects | `/tools` | `views/tools.php` |
 
-Copy is hard-coded in the views. The WhatsApp CTA on the about page points to
+Copy lives in `lang/ms.php` and `lang/en.php` and is rendered through the `t()`
+helper. The WhatsApp CTA on the about page points to
 `https://wa.me/<number>?text=<prefilled message>` — edit the number or message
 in `views/about.php`. External projects are linked from `views/tools.php`.
 
@@ -83,12 +84,18 @@ PNGs are processed in memory with Imagick. The result is base64-encoded into the
 page, turned into a `Blob` URL in the browser, and shown in a preview (iframe
 for PDF, `<img>` for PNG).
 
+The UI ships in Malay and English. `GET ?lang=ms|en` switches the language and
+persists the choice in a `lang` cookie; without it the visitor's cookie is used,
+falling back to Malay. All copy lives in `lang/ms.php` and `lang/en.php` and is
+rendered through the `t()` helper.
+
 ## Project structure
 
 ```
 public/         web root (index.php front controller, router for php -S)
-src/            Compressor (Ghostscript wrapper), PngCompressor (Imagick), View, helpers
+src/            Compressor (Ghostscript wrapper), PngCompressor (Imagick), View, Lang, helpers
 views/          layout, home, about, tools, tools/compress-pdf, tools/compress-png, result, error
+lang/           ms.php, en.php translation strings
 resources/      Tailwind entrypoint
 ```
 

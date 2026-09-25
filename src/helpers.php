@@ -2,11 +2,34 @@
 
 declare(strict_types=1);
 
+use App\Lang;
 use App\View;
 
 function view(string $name, array $data = []): string
 {
     return View::render($name, $data);
+}
+
+function t(string $key, array $replace = []): string
+{
+    return Lang::get($key, $replace);
+}
+
+function lang(): string
+{
+    return Lang::locale();
+}
+
+function lang_choices(): array
+{
+    return Lang::LABELS;
+}
+
+function lang_url(string $locale): string
+{
+    $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+
+    return $path . '?lang=' . $locale;
 }
 
 function e(?string $value): string

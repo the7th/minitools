@@ -1,129 +1,106 @@
 <div class="space-y-6">
     <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl shadow-black/40">
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">Tentang aku</p>
-        <h1 class="mt-3 text-3xl font-bold tracking-tight">Siapa aku</h1>
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400"><?= t('about.eyebrow') ?></p>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight"><?= t('about.heading') ?></h1>
 
         <p class="mt-5 text-base leading-relaxed text-slate-300">
-            Seorang software engineer by background, entrepreneur by accident, dan
-            sekarang banyak masa aku habiskan dekat intersection antara
-            <strong class="font-semibold text-slate-100">business, technology dan problem solving</strong>.
+            <?= t('about.p1', ['focus' => '<strong class="font-semibold text-slate-100">' . t('about.p1_focus') . '</strong>']) ?>
         </p>
 
         <p class="mt-3 text-base leading-relaxed text-slate-400">
-            Aku start coding sejak umur 11 tahun. Dari situ aku pernah buat macam-macam.
-            Jadi developer, tolong run ads, kerja buat business development, manage
-            project, build SaaS, jual digital products, dan akhirnya jadi full-time
-            solopreneur.
+            <?= t('about.p2') ?>
         </p>
 
         <p class="mt-3 text-base leading-relaxed text-slate-400">
-            So aku tak tengok software dari sudut coding semata-mata.
+            <?= t('about.p3') ?>
         </p>
     </section>
 
     <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl shadow-black/40">
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">Cara aku fikir</p>
-        <h2 class="mt-3 text-3xl font-bold tracking-tight">Software bukan sekadar features</h2>
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400"><?= t('about.think_eyebrow') ?></p>
+        <h2 class="mt-3 text-3xl font-bold tracking-tight"><?= t('about.think_heading') ?></h2>
 
         <p class="mt-5 text-base leading-relaxed text-slate-400">
-            Bila orang datang cakap:
+            <?= t('about.think_lead') ?>
         </p>
 
         <blockquote class="mt-4 rounded-r-xl border-l-2 border-emerald-500 bg-slate-950 py-3 pl-5 text-lg italic text-slate-200">
-            &ldquo;Saya nak buat system.&rdquo;
+            &ldquo;<?= t('about.think_quote') ?>&rdquo;
         </blockquote>
 
         <p class="mt-5 text-base leading-relaxed text-slate-400">
-            Benda pertama yang aku fikir bukan framework apa nak pakai.
-            Aku nak tahu dulu:
+            <?= t('about.think_intro') ?>
         </p>
 
         <ul class="mt-5 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-400 marker:text-emerald-500">
-            <li>Apa sebenarnya problem dekat operation?</li>
-            <li>Dekat mana kerja duplicate?</li>
-            <li>Apa benda staff masih buat manual?</li>
-            <li>Apa yang sekarang duduk dalam Excel, WhatsApp, Google Sheet atau kepala seorang staff je?</li>
-            <li>
-                Dan paling penting: kalau kita build system ni, apa yang actually
-                jadi lebih baik untuk business?
-            </li>
+            <li><?= t('about.think_q1') ?></li>
+            <li><?= t('about.think_q2') ?></li>
+            <li><?= t('about.think_q3') ?></li>
+            <li><?= t('about.think_q4') ?></li>
+            <li><?= t('about.think_q5') ?></li>
         </ul>
 
         <p class="mt-5 text-base leading-relaxed text-slate-400">
-            Sebab aku percaya software bukan sekadar collection of features.
-            Software yang bagus sepatutnya buang friction, kurangkan kerja manual,
-            bagi visibility dan make the business easier to operate.
+            <?= t('about.think_p1') ?>
         </p>
 
         <p class="mt-3 text-base leading-relaxed text-slate-400">
-            Aku banyak bekerja dengan Python, Laravel, PHP, MySQL, React, Next.js dan
-            TypeScript. Tapi tech stack bagi aku cuma tools.
+            <?= t('about.think_p2') ?>
         </p>
 
         <p class="mt-5 text-base leading-relaxed text-slate-400">
-            Aku lagi interested dengan benda macam:
+            <?= t('about.think_p3') ?>
         </p>
 
         <ul class="mt-5 space-y-2 text-sm leading-relaxed text-slate-400">
-            <li><strong class="font-semibold text-slate-100">How should the workflow work?</strong></li>
-            <li><strong class="font-semibold text-slate-100">What should we automate?</strong></li>
-            <li><strong class="font-semibold text-slate-100">What data matters?</strong></li>
-            <li><strong class="font-semibold text-slate-100">What does the user actually need?</strong></li>
-            <li><strong class="font-semibold text-slate-100">Dan patut ke benda ni dibina in the first place?</strong></li>
+            <li><strong class="font-semibold text-slate-100"><?= t('about.think_i1') ?></strong></li>
+            <li><strong class="font-semibold text-slate-100"><?= t('about.think_i2') ?></strong></li>
+            <li><strong class="font-semibold text-slate-100"><?= t('about.think_i3') ?></strong></li>
+            <li><strong class="font-semibold text-slate-100"><?= t('about.think_i4') ?></strong></li>
+            <li><strong class="font-semibold text-slate-100"><?= t('about.think_i5') ?></strong></li>
         </ul>
 
         <p class="mt-5 text-base leading-relaxed text-slate-300">
-            Masalah apa yang boleh kita selesaikan?
+            <?= t('about.think_p4') ?>
         </p>
     </section>
 
     <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl shadow-black/40">
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">Produk &amp; eksperimen</p>
-        <h2 class="mt-3 text-3xl font-bold tracking-tight">Benda yang aku build</h2>
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400"><?= t('about.work_eyebrow') ?></p>
+        <h2 class="mt-3 text-3xl font-bold tracking-tight"><?= t('about.work_heading') ?></h2>
 
         <p class="mt-5 text-base leading-relaxed text-slate-400">
-            Selain custom system development, aku juga suka build products sendiri.
+            <?= t('about.work_p1') ?>
         </p>
 
         <p class="mt-3 text-base leading-relaxed text-slate-400">
-            Antara benda yang aku pernah build termasuk SaaS, education platform,
-            digital learning products dan macam-macam mini tools yang selesaikan
-            satu specific problem.
+            <?= t('about.work_p2') ?>
         </p>
 
         <ul class="mt-5 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-400 marker:text-emerald-500">
-            <li>Ada yang jalan.</li>
-            <li>Ada yang buat duit.</li>
-            <li>Ada yang mati bila market berubah.</li>
-            <li>Dan ada yang ajar aku bahawa product yang technically bagus pun tak semestinya business yang bagus.</li>
+            <li><?= t('about.work_i1') ?></li>
+            <li><?= t('about.work_i2') ?></li>
+            <li><?= t('about.work_i3') ?></li>
+            <li><?= t('about.work_i4') ?></li>
         </ul>
 
         <p class="mt-5 text-base leading-relaxed text-slate-400">
-            Sekarang ni aku masih lagi buat macam-macam. Kadang-kadang system untuk
-            business. Kadang-kadang SaaS. Kadang-kadang small tools yang aku rasa
-            useful. Dan kadang-kadang aku cuma explore idea untuk tengok:
+            <?= t('about.work_p3') ?>
         </p>
 
         <blockquote class="mt-4 rounded-r-xl border-l-2 border-emerald-500 bg-slate-950 py-3 pl-5 text-base italic leading-relaxed text-slate-200">
-            &ldquo;Kalau benda ni wujud, adakah hidup atau kerja seseorang boleh jadi
-            lebih senang?&rdquo;
+            &ldquo;<?= t('about.work_quote') ?>&rdquo;
         </blockquote>
 
         <p class="mt-5 text-base leading-relaxed text-slate-400">
-            Website ni basically tempat aku kumpulkan semua benda tu. Apa yang aku
-            build. Apa yang aku belajar. Apa yang aku fikir tentang software,
-            business, marketing dan product. Dan mungkin beberapa eksperimen pelik
-            yang aku decide nak ship dekat internet.
+            <?= t('about.work_p4') ?>
         </p>
     </section>
 
     <section class="rounded-3xl border border-emerald-500/30 bg-emerald-500/5 p-8 shadow-2xl shadow-black/40">
-        <h2 class="text-xl font-bold tracking-tight text-slate-100">Ada problem yang boleh kita automate?</h2>
+        <h2 class="text-xl font-bold tracking-tight text-slate-100"><?= t('about.cta_heading') ?></h2>
         <p class="mt-3 text-base leading-relaxed text-slate-300">
-            Kalau kau ada business problem yang rasa macam
-            <strong class="font-semibold text-slate-100">&ldquo;benda ni sepatutnya boleh automate&rdquo;</strong>,
-            atau ada idea system tapi tak pasti macam mana nak translate kepada
-            technical solution&hellip; boleh sembang dengan aku.
+            <?= t('about.cta_body', ['focus' => '<strong class="font-semibold text-slate-100">' . t('about.cta_focus') . '</strong>']) ?>
         </p>
 
         <a
@@ -132,10 +109,10 @@
             rel="noopener noreferrer"
             class="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-400"
         >
-            Nak buat system? WhatsApp aku di sini
+            <?= t('about.cta_button') ?>
             <span aria-hidden="true">&nearr;</span>
         </a>
     </section>
 </div>
 
-<a href="/" class="mt-6 inline-block text-xs text-slate-500 transition hover:text-slate-300">&larr; Balik ke home</a>
+<a href="/" class="mt-6 inline-block text-xs text-slate-500 transition hover:text-slate-300">&larr; <?= t('back_home') ?></a>
