@@ -95,8 +95,8 @@ return [
     'courier.built3_desc' => 'Track & trace, validate postcode, create/get parcel, create/get/cancel pickup request, standard + contract customer specific pricing.',
     'courier.built4_title' => 'Integrations',
     'courier.built4_desc' => 'Pos Malaysia & MatDespatch.',
-    'courier.result1' => 'Handled up to <strong class="font-semibold text-slate-100">10,000 parcels a day</strong>.',
-    'courier.result2' => '<strong class="font-semibold text-slate-100">Top 4 finalist at POS Pitch</strong> — an open-tender program to build a delivery system for POS.',
+    'courier.result1' => 'Handled up to <strong class="font-semibold text-plum">10,000 parcels a day</strong>.',
+    'courier.result2' => '<strong class="font-semibold text-plum">Top 4 finalist at POS Pitch</strong> — an open-tender program to build a delivery system for POS.',
     'courier.result3' => 'The system is no longer running, but it taught me how to build a high-volume system that has to work every single day.',
 
     'sdms.title' => 'Smart Device Management System (SDMS)',
