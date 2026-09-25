@@ -4,17 +4,17 @@ $saved = $improved ? (1 - $compressedSize / max($originalSize, 1)) * 100 : 0;
 $tool = $tool ?? 'Fail';
 
 ?>
-<section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl shadow-black/40">
-    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400"><?= t('result.eyebrow') ?></p>
+<section class="rounded-3xl border border-plum/10 bg-tea/60 p-8 shadow-xl shadow-plum/5">
+    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-plum/60"><?= t('result.eyebrow') ?></p>
     <h1 class="mt-3 text-3xl font-bold tracking-tight"><?= t('result.heading', ['tool' => $tool]) ?></h1>
 
-    <p class="mt-3 text-sm text-slate-400">
+    <p class="mt-3 text-sm text-plum/70">
         <?= e(human_size($originalSize)) ?> &rarr;
-        <span class="font-semibold text-emerald-300"><?= e(human_size($compressedSize)) ?></span>
+        <span class="font-semibold text-teal-700"><?= e(human_size($compressedSize)) ?></span>
         <?php if ($improved): ?>
-            <span class="text-slate-500"><?= t('result.saved', ['percent' => number_format($saved, 0)]) ?></span>
+            <span class="text-plum/50"><?= t('result.saved', ['percent' => number_format($saved, 0)]) ?></span>
         <?php else: ?>
-            <span class="text-slate-500"><?= t('result.optimal') ?></span>
+            <span class="text-plum/50"><?= t('result.optimal') ?></span>
         <?php endif; ?>
     </p>
 
@@ -22,13 +22,13 @@ $tool = $tool ?? 'Fail';
         <iframe
             id="preview"
             title="<?= e(t('result.preview', ['tool' => $tool])) ?>"
-            class="mt-6 h-[60vh] w-full rounded-xl border border-slate-800 bg-slate-950"
+            class="mt-6 h-[60vh] w-full rounded-xl border border-plum/10 bg-white"
         ></iframe>
     <?php else: ?>
         <img
             id="preview"
             alt="<?= e(t('result.preview', ['tool' => $tool])) ?>"
-            class="mt-6 max-h-[60vh] w-full rounded-xl border border-slate-800 bg-slate-950 object-contain"
+            class="mt-6 max-h-[60vh] w-full rounded-xl border border-plum/10 bg-white object-contain"
         >
     <?php endif; ?>
 
@@ -37,19 +37,19 @@ $tool = $tool ?? 'Fail';
             id="download-link"
             href="#"
             download="<?= e($downloadName) ?>"
-            class="flex-1 rounded-xl bg-emerald-500 px-6 py-3.5 text-center text-sm font-semibold text-emerald-950 transition hover:bg-emerald-400"
+            class="flex-1 rounded-xl bg-plum px-6 py-3.5 text-center text-sm font-semibold text-cream transition hover:bg-plum/90"
         >
             <?= t('result.download') ?>
         </a>
         <a
             href="<?= e($toolPath ?? '/tools') ?>"
-            class="flex-1 rounded-xl border border-slate-700 px-6 py-3.5 text-center text-sm font-semibold text-slate-300 transition hover:bg-slate-800"
+            class="flex-1 rounded-xl border border-plum/20 px-6 py-3.5 text-center text-sm font-semibold text-plum transition hover:bg-vanilla/40"
         >
             <?= t('result.again', ['tool' => $tool]) ?>
         </a>
     </div>
 
-    <p class="mt-4 text-center text-xs text-slate-500">
+    <p class="mt-4 text-center text-xs text-plum/50">
         <?= t('result.note') ?>
     </p>
 </section>

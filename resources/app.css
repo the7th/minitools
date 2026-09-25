@@ -2,6 +2,12 @@
 
 @theme {
     --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --color-pearl: #9ad2cb;
+    --color-tea: #d7ebba;
+    --color-cream: #feffbe;
+    --color-vanilla: #ebd494;
+    --color-plum: #472836;
 }
 
 input[type="file"]::file-selector-button {

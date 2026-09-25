@@ -9,15 +9,15 @@ $band = match (true) {
 };
 
 $scoreColor = match ($band) {
-    'good' => 'text-emerald-300',
-    'ok' => 'text-amber-300',
-    default => 'text-red-300',
+    'good' => 'text-teal-700',
+    'ok' => 'text-amber-600',
+    default => 'text-rose-600',
 };
 
 $dot = [
-    'pass' => 'bg-emerald-400',
-    'warn' => 'bg-amber-400',
-    'fail' => 'bg-red-400',
+    'pass' => 'bg-teal-500',
+    'warn' => 'bg-amber-500',
+    'fail' => 'bg-rose-500',
 ];
 
 $detail = static function (array $check): string {
@@ -57,33 +57,33 @@ $match = $report['match'];
 
 ?>
 <div class="space-y-6">
-    <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl shadow-black/40">
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400"><?= t('ats.result_eyebrow') ?></p>
+    <section class="rounded-3xl border border-plum/10 bg-tea/60 p-8 shadow-xl shadow-plum/5">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-plum/60"><?= t('ats.result_eyebrow') ?></p>
         <h1 class="mt-3 text-3xl font-bold tracking-tight"><?= t('ats.result_heading') ?></h1>
 
         <div class="mt-6 flex items-end gap-3">
             <span class="text-5xl font-bold <?= $scoreColor ?>"><?= $score ?></span>
-            <span class="pb-1.5 text-xs text-slate-500"><?= t('ats.score_label') ?></span>
+            <span class="pb-1.5 text-xs text-plum/50"><?= t('ats.score_label') ?></span>
         </div>
-        <p class="mt-2 text-sm text-slate-300"><?= t('ats.score_' . $band) ?></p>
-        <p class="mt-1 text-xs text-slate-500"><?= e($summary) ?></p>
+        <p class="mt-2 text-sm text-plum/80"><?= t('ats.score_' . $band) ?></p>
+        <p class="mt-1 text-xs text-plum/50"><?= e($summary) ?></p>
 
-        <h2 class="mt-8 text-xs font-semibold uppercase tracking-wider text-slate-400"><?= t('ats.checks_heading') ?></h2>
+        <h2 class="mt-8 text-xs font-semibold uppercase tracking-wider text-plum/50"><?= t('ats.checks_heading') ?></h2>
 
         <ul class="mt-4 space-y-3">
             <?php foreach ($report['checks'] as $check): ?>
-                <li class="rounded-xl border border-slate-800 bg-slate-950 px-5 py-4">
+                <li class="rounded-xl border border-plum/10 bg-cream/70 px-5 py-4">
                     <div class="flex items-start gap-3">
                         <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full <?= $dot[$check['status']] ?>"></span>
                         <div>
-                            <p class="text-sm font-semibold text-slate-100"><?= t('ats.check.' . $check['id'] . '.title') ?></p>
-                            <p class="mt-1 text-xs leading-relaxed text-slate-400"><?= $detail($check) ?></p>
+                            <p class="text-sm font-semibold text-plum"><?= t('ats.check.' . $check['id'] . '.title') ?></p>
+                            <p class="mt-1 text-xs leading-relaxed text-plum/70"><?= $detail($check) ?></p>
 
                             <?php $labels = $chips($check); ?>
                             <?php if ($labels !== []): ?>
                                 <p class="mt-2 flex flex-wrap gap-1.5">
                                     <?php foreach ($labels as $label): ?>
-                                        <span class="rounded-lg border border-slate-700 bg-slate-900 px-2.5 py-1 text-xs text-slate-300"><?= e($label) ?></span>
+                                        <span class="rounded-lg border border-plum/15 bg-white/70 px-2.5 py-1 text-xs text-plum/80"><?= e($label) ?></span>
                                     <?php endforeach; ?>
                                 </p>
                             <?php endif; ?>
@@ -95,9 +95,9 @@ $match = $report['match'];
     </section>
 
     <?php if ($match !== null): ?>
-        <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl shadow-black/40">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400"><?= t('ats.keywords_heading') ?></p>
-            <p class="mt-3 text-sm leading-relaxed text-slate-400">
+        <section class="rounded-3xl border border-plum/10 bg-tea/60 p-8 shadow-xl shadow-plum/5">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-plum/60"><?= t('ats.keywords_heading') ?></p>
+            <p class="mt-3 text-sm leading-relaxed text-plum/70">
                 <?= t('ats.keywords_percent', [
                     'percent' => $match['percent'],
                     'found' => count($match['found']),
@@ -106,26 +106,26 @@ $match = $report['match'];
             </p>
 
             <?php if ($match['found'] !== []): ?>
-                <p class="mt-6 text-xs font-semibold uppercase tracking-wider text-emerald-400"><?= t('ats.keywords_found') ?></p>
+                <p class="mt-6 text-xs font-semibold uppercase tracking-wider text-teal-700"><?= t('ats.keywords_found') ?></p>
                 <p class="mt-2 flex flex-wrap gap-1.5">
                     <?php foreach ($match['found'] as $keyword): ?>
-                        <span class="rounded-lg border border-emerald-900/60 bg-emerald-950/40 px-2.5 py-1 text-xs text-emerald-300"><?= e($keyword) ?></span>
+                        <span class="rounded-lg border border-teal-300 bg-teal-100 px-2.5 py-1 text-xs text-teal-800"><?= e($keyword) ?></span>
                     <?php endforeach; ?>
                 </p>
             <?php endif; ?>
 
             <?php if ($match['missing'] !== []): ?>
-                <p class="mt-6 text-xs font-semibold uppercase tracking-wider text-red-400"><?= t('ats.keywords_missing') ?></p>
+                <p class="mt-6 text-xs font-semibold uppercase tracking-wider text-rose-700"><?= t('ats.keywords_missing') ?></p>
                 <p class="mt-2 flex flex-wrap gap-1.5">
                     <?php foreach ($match['missing'] as $keyword): ?>
-                        <span class="rounded-lg border border-red-900/60 bg-red-950/40 px-2.5 py-1 text-xs text-red-300"><?= e($keyword) ?></span>
+                        <span class="rounded-lg border border-rose-300 bg-rose-100 px-2.5 py-1 text-xs text-rose-800"><?= e($keyword) ?></span>
                     <?php endforeach; ?>
                 </p>
             <?php else: ?>
-                <p class="mt-6 text-xs text-slate-500"><?= t('ats.keywords_none_missing') ?></p>
+                <p class="mt-6 text-xs text-plum/50"><?= t('ats.keywords_none_missing') ?></p>
             <?php endif; ?>
 
-            <p class="mt-6 text-xs text-slate-500"><?= t('ats.keywords_note') ?></p>
+            <p class="mt-6 text-xs text-plum/50"><?= t('ats.keywords_note') ?></p>
         </section>
     <?php endif; ?>
 </div>
@@ -133,13 +133,13 @@ $match = $report['match'];
 <div class="mt-6 flex flex-col gap-3 sm:flex-row">
     <a
         href="/tools/ats-checker"
-        class="flex-1 rounded-xl bg-emerald-500 px-6 py-3.5 text-center text-sm font-semibold text-emerald-950 transition hover:bg-emerald-400"
+        class="flex-1 rounded-xl bg-plum px-6 py-3.5 text-center text-sm font-semibold text-cream transition hover:bg-plum/90"
     >
         <?= t('ats.again') ?>
     </a>
     <a
         href="/tools"
-        class="flex-1 rounded-xl border border-slate-700 px-6 py-3.5 text-center text-sm font-semibold text-slate-300 transition hover:bg-slate-800"
+        class="flex-1 rounded-xl border border-plum/20 px-6 py-3.5 text-center text-sm font-semibold text-plum transition hover:bg-vanilla/40"
     >
         <?= t('back_tools') ?>
     </a>
