@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Compressor;
 use App\Lang;
 use App\PngCompressor;
+use App\ResumeChecker;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -93,6 +94,27 @@ if ($method === 'POST' && $path === '/tools/compress-png') {
     exit;
 }
 
+if ($method === 'GET' && $path === '/tools/ats-checker') {
+    echo view('tools/ats-checker', ['title' => t('meta.ats')]);
+
+    exit;
+}
+
+if ($method === 'POST' && $path === '/tools/ats-checker') {
+    try {
+        echo handle_ats_checker();
+    } catch (Throwable $e) {
+        http_response_code(422);
+        echo view('tools/ats-checker', [
+            'title' => t('meta.ats'),
+            'error' => $e->getMessage(),
+            'job' => (string) ($_POST['job'] ?? ''),
+        ]);
+    }
+
+    exit;
+}
+
 http_response_code(404);
 echo view('error', ['title' => t('meta.not_found'), 'error' => t('error.not_found')]);
 exit;
@@ -152,6 +174,22 @@ function handle_compress_png(): string
         'originalSize' => strlen($original),
         'compressedSize' => strlen($compressed),
         'improved' => $improved,
+    ]);
+}
+
+function handle_ats_checker(): string
+{
+    [$original] = read_upload('resume', ResumeChecker::MAX_BYTES, 'PDF');
+
+    if (! str_starts_with($original, '%PDF-')) {
+        throw new RuntimeException(t('error.invalid_pdf'));
+    }
+
+    $job = trim((string) ($_POST['job'] ?? ''));
+
+    return view('ats-result', [
+        'title' => t('meta.ats'),
+        'report' => (new ResumeChecker())->analyse($original, $job),
     ]);
 }
 

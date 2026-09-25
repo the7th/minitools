@@ -99,7 +99,17 @@
 
     <section class="rounded-3xl border border-emerald-500/30 bg-emerald-500/5 p-8 shadow-2xl shadow-black/40">
         <h2 class="text-xl font-bold tracking-tight text-slate-100"><?= t('about.cta_heading') ?></h2>
-        <p class="mt-3 text-base leading-relaxed text-slate-300">
+
+        <ul class="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            <li class="rounded-xl border border-emerald-500/20 bg-slate-950 px-5 py-3.5 text-sm font-semibold text-slate-200"><?= t('about.svc_apps') ?></li>
+            <li class="rounded-xl border border-emerald-500/20 bg-slate-950 px-5 py-3.5 text-sm font-semibold text-slate-200"><?= t('about.svc_website') ?></li>
+            <li class="rounded-xl border border-emerald-500/20 bg-slate-950 px-5 py-3.5 text-sm font-semibold text-slate-200"><?= t('about.svc_erp') ?></li>
+            <li class="rounded-xl border border-emerald-500/20 bg-slate-950 px-5 py-3.5 text-sm font-semibold text-slate-200"><?= t('about.svc_dashboard') ?></li>
+            <li class="rounded-xl border border-emerald-500/20 bg-slate-950 px-5 py-3.5 text-sm font-semibold text-slate-200"><?= t('about.svc_management') ?></li>
+            <li class="rounded-xl border border-emerald-500/20 bg-slate-950 px-5 py-3.5 text-sm font-semibold text-slate-200"><?= t('about.svc_workflow') ?></li>
+        </ul>
+
+        <p class="mt-6 text-base leading-relaxed text-slate-300">
             <?= t('about.cta_body', ['focus' => '<strong class="font-semibold text-slate-100">' . t('about.cta_focus') . '</strong>']) ?>
         </p>
 

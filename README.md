@@ -3,7 +3,7 @@
 Personal site plus a collection of small self-hosted web tools, in Malay and
 English. It has a homepage, an about page ("Tentang Aku") with a prefilled
 WhatsApp CTA, a tools page that lists the compressors and other projects, and
-two project case studies (courier system, SDMS). Two tools ship today:
+two project case studies (courier system, SDMS). Three tools ship today:
 
 ## Compress PDF
 
@@ -30,6 +30,21 @@ result is shown as a preview before download.
 - Animated PNGs (APNG) are returned untouched
 - If compression makes the file bigger, the original is returned
 
+## ATS Resume Checker
+
+Upload a resume PDF and get an ATS-friendliness score with a checklist of what
+to fix. Optionally paste a job description to see which keywords are present or
+missing. Nothing is stored — the PDF is piped through Ghostscript in memory
+(`txtwrite` for text, `inkcov` for the page count) and never touches disk.
+
+- Max upload: 10 MB (`ResumeChecker::MAX_BYTES`)
+- Checks: extractable text, contact details, standard section headings, dates,
+  bullet points, resume length, multi-column/table layout, file size and broken
+  characters, each weighted to a 0–100 score
+- Keyword match: top job-description terms (plus repeated phrases) compared
+  against the resume text, with a match percentage and found/missing lists
+- Scanned/image PDFs (no extractable text) are reported as unreadable
+
 ## Pages & content
 
 | Page | Route | View |
@@ -37,6 +52,7 @@ result is shown as a preview before download.
 | Home | `/` | `views/home.php` |
 | Tentang Aku | `/tentang-aku` | `views/about.php` |
 | Tools & projects | `/tools` | `views/tools.php` |
+| ATS Resume Checker | `/tools/ats-checker` | `views/tools/ats-checker.php`, `views/ats-result.php` |
 | Case study: courier system | `/projek/sistem-kurier` | `views/project.php` |
 | Case study: SDMS | `/projek/sdms` | `views/project.php` |
 
@@ -74,6 +90,7 @@ For development, `npm run dev` rebuilds the CSS on change.
 | Ghostscript binary | `GS_BINARY` env var, falls back to `gs` |
 | PDF size, preset, timeout | Constants in `src/Compressor.php` |
 | PNG size, colours, quality gate | Constants in `src/PngCompressor.php` |
+| Resume size, checks, keyword limit | Constants in `src/ResumeChecker.php` |
 
 ## How it works
 
@@ -81,11 +98,13 @@ For development, `npm run dev` rebuilds the CSS on change.
 `GET /tentang-aku` renders the about page, `GET /tools` lists the tools,
 `GET /projek/sistem-kurier` and `GET /projek/sdms` render the case studies, and
 `GET`/`POST /tools/compress-pdf` and `GET`/`POST /tools/compress-png` render and
-run the compressors. The uploaded file is read from PHP's temp file and deleted
+run the compressors, and `GET`/`POST /tools/ats-checker` renders and runs the
+resume checker. The uploaded file is read from PHP's temp file and deleted
 immediately. PDFs are piped through `gs` via `symfony/process` (stdin → stdout);
 PNGs are processed in memory with Imagick. The result is base64-encoded into the
 page, turned into a `Blob` URL in the browser, and shown in a preview (iframe
-for PDF, `<img>` for PNG).
+for PDF, `<img>` for PNG). The resume checker also pipes the PDF to `gs` on
+stdin and builds its report entirely in memory.
 
 The UI ships in Malay and English. `GET ?lang=ms|en` switches the language and
 persists the choice in a `lang` cookie; without it the visitor's cookie is used,
@@ -96,8 +115,8 @@ rendered through the `t()` helper.
 
 ```
 public/         web root (index.php front controller, router for php -S)
-src/            Compressor (Ghostscript wrapper), PngCompressor (Imagick), View, Lang, helpers
-views/          layout, home, about, tools, project, tools/compress-pdf, tools/compress-png, result, error
+src/            Compressor (Ghostscript wrapper), PngCompressor (Imagick), ResumeChecker, View, Lang, helpers
+views/          layout, home, about, tools, project, ats-result, tools/compress-pdf, tools/compress-png, tools/ats-checker, result, error
 lang/           ms.php, en.php translation strings
 resources/      Tailwind entrypoint
 ```

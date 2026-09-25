@@ -31,6 +31,18 @@
                     <span aria-hidden="true" class="text-slate-500">&rarr;</span>
                 </a>
             </li>
+            <li>
+                <a
+                    href="/tools/ats-checker"
+                    class="flex items-center justify-between rounded-xl border border-slate-700 bg-slate-950 px-5 py-4 transition hover:border-emerald-500/60 hover:bg-slate-900"
+                >
+                    <span>
+                        <span class="block text-sm font-semibold text-slate-100">ATS Resume Checker</span>
+                        <span class="mt-1 block text-xs text-slate-500"><?= t('tools.ats_desc') ?></span>
+                    </span>
+                    <span aria-hidden="true" class="text-slate-500">&rarr;</span>
+                </a>
+            </li>
         </ul>
     </section>
 
