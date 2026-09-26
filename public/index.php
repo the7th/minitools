@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 use App\Compressor;
 use App\Lang;
+use App\PdfConverter;
 use App\PngCompressor;
+use App\QrGenerator;
 use App\ResumeChecker;
+use App\Zip;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -89,6 +92,53 @@ if ($method === 'POST' && $path === '/tools/compress-png') {
     } catch (Throwable $e) {
         http_response_code(422);
         echo view('tools/compress-png', ['title' => t('meta.compress_png'), 'error' => $e->getMessage()]);
+    }
+
+    exit;
+}
+
+if ($method === 'GET' && $path === '/tools/pdf-to-image') {
+    echo view('tools/pdf-to-image', ['title' => t('meta.pdf_to_image')]);
+
+    exit;
+}
+
+if ($method === 'POST' && $path === '/tools/pdf-to-image') {
+    try {
+        echo handle_pdf_to_image();
+    } catch (Throwable $e) {
+        http_response_code(422);
+        echo view('tools/pdf-to-image', [
+            'title' => t('meta.pdf_to_image'),
+            'error' => $e->getMessage(),
+            'format' => (string) ($_POST['format'] ?? 'jpg'),
+            'dpi' => (int) ($_POST['dpi'] ?? PdfConverter::DEFAULT_DPI),
+            'pages' => (string) ($_POST['pages'] ?? ''),
+        ]);
+    }
+
+    exit;
+}
+
+if ($method === 'GET' && $path === '/tools/qr-code') {
+    echo view('tools/qr-code', ['title' => t('meta.qr')]);
+
+    exit;
+}
+
+if ($method === 'POST' && $path === '/tools/qr-code') {
+    try {
+        echo handle_qr_code();
+    } catch (Throwable $e) {
+        http_response_code(422);
+        echo view('tools/qr-code', [
+            'title' => t('meta.qr'),
+            'error' => $e->getMessage(),
+            'content' => (string) ($_POST['content'] ?? ''),
+            'level' => (string) ($_POST['level'] ?? QrGenerator::DEFAULT_LEVEL),
+            'size' => (int) ($_POST['size'] ?? QrGenerator::DEFAULT_SIZE),
+            'format' => (string) ($_POST['format'] ?? 'png'),
+        ]);
     }
 
     exit;
@@ -193,6 +243,150 @@ function handle_ats_checker(): string
     ]);
 }
 
+function handle_pdf_to_image(): string
+{
+    [$original, $clientName] = read_upload('pdf', PdfConverter::MAX_BYTES, 'PDF');
+
+    if (! str_starts_with($original, '%PDF-')) {
+        throw new RuntimeException(t('error.invalid_pdf'));
+    }
+
+    $format = (string) ($_POST['format'] ?? 'jpg');
+
+    if (! in_array($format, PdfConverter::FORMATS, true)) {
+        throw new RuntimeException(t('error.invalid_format'));
+    }
+
+    $dpi = (int) ($_POST['dpi'] ?? PdfConverter::DEFAULT_DPI);
+
+    if (! in_array($dpi, PdfConverter::DPI_CHOICES, true)) {
+        throw new RuntimeException(t('error.invalid_dpi'));
+    }
+
+    $converter = new PdfConverter();
+    $pages = parse_page_selection((string) ($_POST['pages'] ?? ''), $converter->pageCount($original));
+
+    set_time_limit(PdfConverter::TIMEOUT * count($pages) + 30);
+
+    $images = $converter->render($original, $pages, $format, $dpi);
+    $stem = safe_name($clientName, t('download.document'));
+    $extension = $format === 'png' ? 'png' : 'jpg';
+    $mime = $format === 'png' ? 'image/png' : 'image/jpeg';
+
+    $result = [];
+    $archive = [];
+
+    foreach ($images as $page => $bytes) {
+        $name = $stem . '-page-' . $page . '.' . $extension;
+
+        $result[] = [
+            'page' => $page,
+            'name' => $name,
+            'mime' => $mime,
+            'base64' => base64_encode($bytes),
+        ];
+
+        $archive[$name] = $bytes;
+    }
+
+    return view('pdf-images-result', [
+        'title' => t('meta.pdf_to_image'),
+        'format' => strtoupper($extension),
+        'images' => $result,
+        'size' => array_sum(array_map('strlen', $images)),
+        'zipName' => $stem . '-images.zip',
+        'zipBase64' => base64_encode(Zip::create($archive)),
+        'toolPath' => '/tools/pdf-to-image',
+    ]);
+}
+
+function handle_qr_code(): string
+{
+    $content = trim((string) ($_POST['content'] ?? ''));
+
+    if ($content === '') {
+        throw new RuntimeException(t('error.empty_content'));
+    }
+
+    if (mb_strlen($content) > QrGenerator::MAX_CHARS) {
+        throw new RuntimeException(t('error.content_too_long', ['max' => QrGenerator::MAX_CHARS]));
+    }
+
+    $level = strtoupper((string) ($_POST['level'] ?? QrGenerator::DEFAULT_LEVEL));
+
+    if (! in_array($level, QrGenerator::LEVELS, true)) {
+        throw new RuntimeException(t('error.invalid_level'));
+    }
+
+    $size = (int) ($_POST['size'] ?? QrGenerator::DEFAULT_SIZE);
+
+    if (! in_array($size, QrGenerator::SIZES, true)) {
+        throw new RuntimeException(t('error.invalid_size'));
+    }
+
+    $format = (string) ($_POST['format'] ?? 'png');
+
+    if (! in_array($format, QrGenerator::FORMATS, true)) {
+        throw new RuntimeException(t('error.invalid_format'));
+    }
+
+    $image = (new QrGenerator())->render($content, $format, $level, $size);
+
+    return view('qr-result', [
+        'title' => t('meta.qr'),
+        'level' => $level,
+        'format' => strtoupper($format),
+        'mime' => $format === 'svg' ? 'image/svg+xml' : 'image/png',
+        'base64' => base64_encode($image),
+        'downloadName' => 'qrcode.' . $format,
+        'size' => strlen($image),
+        'toolPath' => '/tools/qr-code',
+    ]);
+}
+
+function parse_page_selection(string $selection, int $total): array
+{
+    $selection = trim($selection);
+
+    if ($selection === '') {
+        $pages = range(1, $total);
+    } else {
+        $pages = [];
+
+        foreach (explode(',', $selection) as $part) {
+            $part = trim($part);
+
+            if (preg_match('/^(\d+)\s*-\s*(\d+)$/', $part, $matches)) {
+                $first = (int) $matches[1];
+                $last = (int) $matches[2];
+            } elseif (ctype_digit($part)) {
+                $first = $last = (int) $part;
+            } else {
+                throw new RuntimeException(t('error.invalid_pages'));
+            }
+
+            if ($first < 1 || $last < $first) {
+                throw new RuntimeException(t('error.invalid_pages'));
+            }
+
+            if ($last > $total) {
+                throw new RuntimeException(t('error.page_range', ['total' => $total]));
+            }
+
+            $pages = [...$pages, ...range($first, $last)];
+        }
+
+        $pages = array_values(array_unique($pages));
+        sort($pages);
+    }
+
+    if (count($pages) > PdfConverter::MAX_PAGES) {
+        throw new RuntimeException(t('error.too_many_pages', ['max' => PdfConverter::MAX_PAGES]));
+    }
+
+    return $pages;
+}
+
 function read_upload(string $field, int $maxBytes, string $label): array
 {
     $file = $_FILES[$field] ?? null;
@@ -229,8 +423,13 @@ function read_upload(string $field, int $maxBytes, string $label): array
 
 function download_name(string $clientName, string $fallback, string $extension): string
 {
-    $name = pathinfo($clientName, PATHINFO_FILENAME);
-    $name = trim((string) preg_replace('/[^A-Za-z0-9 _.-]+/', '', $name)) ?: $fallback;
+    return safe_name($clientName, $fallback) . '-compressed.' . $extension;
+}
 
-    return $name . '-compressed.' . $extension;
+function safe_name(string $clientName, string $fallback): string
+{
+    $name = pathinfo($clientName, PATHINFO_FILENAME);
+    $name = trim((string) preg_replace('/[^A-Za-z0-9 _.-]+/', '', $name));
+
+    return $name !== '' ? $name : $fallback;
 }

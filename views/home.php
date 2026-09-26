@@ -3,11 +3,7 @@
         <?= t('home.heading') ?>
     </h1>
 
-    <p class="mt-5 text-base leading-relaxed text-plum/80">
-        <?= t('home.tagline') ?>
-    </p>
-
-    <p class="mt-3 text-base leading-relaxed text-plum/70">
+    <p class="mt-5 text-base leading-relaxed text-plum/70">
         <?= t('home.intro') ?>
     </p>
 

@@ -33,6 +33,30 @@
             </li>
             <li>
                 <a
+                    href="/tools/pdf-to-image"
+                    class="flex items-center justify-between rounded-xl border border-plum/15 bg-cream/70 px-5 py-4 transition hover:border-pearl hover:bg-vanilla/40"
+                >
+                    <span>
+                        <span class="block text-sm font-semibold text-plum">PDF to JPG/PNG</span>
+                        <span class="mt-1 block text-xs text-plum/50"><?= t('tools.pdf_to_image_desc') ?></span>
+                    </span>
+                    <span aria-hidden="true" class="text-plum/40">&rarr;</span>
+                </a>
+            </li>
+            <li>
+                <a
+                    href="/tools/qr-code"
+                    class="flex items-center justify-between rounded-xl border border-plum/15 bg-cream/70 px-5 py-4 transition hover:border-pearl hover:bg-vanilla/40"
+                >
+                    <span>
+                        <span class="block text-sm font-semibold text-plum">QR Code Generator</span>
+                        <span class="mt-1 block text-xs text-plum/50"><?= t('tools.qr_desc') ?></span>
+                    </span>
+                    <span aria-hidden="true" class="text-plum/40">&rarr;</span>
+                </a>
+            </li>
+            <li>
+                <a
                     href="/tools/ats-checker"
                     class="flex items-center justify-between rounded-xl border border-plum/15 bg-cream/70 px-5 py-4 transition hover:border-pearl hover:bg-vanilla/40"
                 >
