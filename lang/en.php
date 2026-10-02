@@ -25,6 +25,9 @@ return [
     'home.intro' => 'System developer. Whether it is PHP, Java, native or hybrid. Have an idea, a project, or need someone to help? Get in touch.',
     'home.cta_tools' => 'Explore projects & tools',
     'home.cta_about' => 'About me',
+    'home.contact_heading' => 'Want to build a system?',
+    'home.contact_body' => 'Mobile apps, websites, ERP, dashboards or automation — if you have a system idea or something that should be automated, let\'s talk on WhatsApp.',
+    'home.contact_button' => 'Contact me on WhatsApp',
 
     'about.eyebrow' => 'About me',
     'about.heading' => 'Who I am',

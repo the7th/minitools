@@ -25,6 +25,9 @@ return [
     'home.intro' => 'System developer. Tak kira PHP, Java, native ataupun hybrid. Ada idea, projek atau perlukan seseorang untuk bantu? Boleh hubungi saya.',
     'home.cta_tools' => 'Terokai projek & tools',
     'home.cta_about' => 'Tentang saya',
+    'home.contact_heading' => 'Nak buat system?',
+    'home.contact_body' => 'Mobile app, website, ERP, dashboard atau automation — kalau ada idea system atau masalah yang boleh di-automate, boleh sembang dengan saya di WhatsApp.',
+    'home.contact_button' => 'Hubungi saya di WhatsApp',
 
     'about.eyebrow' => 'Tentang saya',
     'about.heading' => 'Siapa saya',

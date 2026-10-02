@@ -82,9 +82,10 @@ missing. Nothing is stored — the PDF is piped through Ghostscript in memory
 | Case study: SDMS | `/projek/sdms` | `views/project.php` |
 
 Copy lives in `lang/ms.php` and `lang/en.php` and is rendered through the `t()`
-helper. The WhatsApp CTA on the about page points to
+helper. The WhatsApp CTAs on the home and about pages point to
 `https://wa.me/<number>?text=<prefilled message>` — edit the number or message
-in `views/about.php`. External projects are linked from `views/tools.php`.
+in `views/home.php` and `views/about.php`. External projects are linked from
+`views/tools.php`.
 
 ## Requirements
 
